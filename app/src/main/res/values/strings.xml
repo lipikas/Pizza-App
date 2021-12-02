@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Project5</string>
+    <string name="app_name">RU Pizzeria</string>
+    <string name="button_text1">Enter</string>
+    <string name="button_text2">Change</string>
+    <string name="button_text3">Order Deluxe Pizza</string>
+    <string name="button_text4">Order Hawaiian Pizza</string>
+    <string name="button_text5">Order Pepperoni Pizza</string>
 </resources>
