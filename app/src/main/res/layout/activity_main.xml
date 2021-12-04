@@ -6,148 +6,153 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TableLayout
-        android:layout_width="391dp"
-        android:layout_height="805dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:paddingTop="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="Hello">
 
-        <TableRow android:layout_height="100dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <TextView
-                android:layout_height="match_parent"
-                android:layout_column="1"
-                android:paddingTop="20dp"
-                android:text="Customer Phone Number:" />
+            <TableLayout
+                android:layout_width="391dp"
+                android:layout_height="805dp"
+                android:paddingTop="30dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:paddingLeft="15dp">
+                <TableRow android:layout_height="100dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:hint=""
-                    android:inputType="number"
-                    android:maxLength="10" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </TableRow>
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:layout_column="1"
+                        android:paddingTop="20dp"
+                        android:text="Customer Phone Number:" />
 
-        <TableRow
-            android:layout_height="100dp"
-            android:paddingTop="5dp">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:paddingLeft="15dp">
 
-            <Button
-                android:layout_width="139dp"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_marginLeft="10dp"
-                android:text="@string/button_text1" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:hint=""
+                            android:inputType="number"
+                            android:maxLength="10" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </TableRow>
 
-            <Button
-                android:layout_width="156dp"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="50dp"
-                android:text="@string/button_text2" />
-        </TableRow>
+                <TableRow
+                    android:layout_height="100dp"
+                    android:paddingTop="5dp">
 
-        <TableRow
-            android:layout_height="100dp"
-            android:paddingTop="40dp">
+                    <Button
+                        android:layout_width="139dp"
+                        android:layout_height="wrap_content"
+                        android:layout_column="1"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/button_text1" />
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_column="1"
-                android:src="@drawable/deluxeimg" />
+                    <Button
+                        android:layout_width="156dp"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/button_text2" />
+                </TableRow>
 
-            <Button
-                android:id="@+id/deluxe"
-                android:layout_width="139dp"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/button_text3"
-                android:onClick="createDeluxeOrder"/>
+                <TableRow
+                    android:layout_height="100dp"
+                    android:paddingTop="40dp">
 
-        </TableRow>
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_column="1"
+                        android:src="@drawable/deluxeimg" />
 
-        <TableRow
-            android:layout_height="100dp"
-            android:paddingTop="10dp">
+                    <Button
+                        android:id="@+id/deluxe"
+                        android:layout_width="139dp"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="createDeluxeOrder"
+                        android:text="@string/button_text3" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_column="1"
-                android:src="@drawable/hawaiianimg" />
+                </TableRow>
 
-            <Button
-                android:layout_width="139dp"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/button_text4"
-                android:onClick="createHawaiianOrder"/>
+                <TableRow
+                    android:layout_height="100dp"
+                    android:paddingTop="10dp">
 
-        </TableRow>
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_column="1"
+                        android:src="@drawable/hawaiianimg" />
 
-        <TableRow
-            android:layout_height="100dp"
-            android:paddingTop="10dp">
+                    <Button
+                        android:layout_width="139dp"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="createHawaiianOrder"
+                        android:text="@string/button_text4" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_column="1"
-                android:src="@drawable/pepperoniimg" />
+                </TableRow>
 
-            <Button
-                android:layout_width="139dp"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/button_text5"
-                android:onClick="createPepperoniOrder" />
+                <TableRow
+                    android:layout_height="100dp"
+                    android:paddingTop="10dp">
 
-        </TableRow>
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_column="1"
+                        android:src="@drawable/pepperoniimg" />
 
-        <TableRow
-            android:layout_height="100dp"
-            android:paddingTop="40dp">
+                    <Button
+                        android:layout_width="139dp"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:onClick="createPepperoniOrder"
+                        android:text="@string/button_text5" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_column="1"
-                android:onClick="order"
-                android:src="@drawable/storeorders" />
+                </TableRow>
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_column="2"
-                android:onClick="orderList"
-                android:src="@drawable/cart" />
+                <TableRow
+                    android:layout_height="100dp"
+                    android:paddingTop="40dp">
 
-        </TableRow>
-    </TableLayout>
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_column="1"
+                        android:onClick="order"
+                        android:src="@drawable/storeorders" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_column="2"
+                        android:onClick="orderList"
+                        android:src="@drawable/cart" />
+
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
