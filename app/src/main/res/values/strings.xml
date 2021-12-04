@@ -5,4 +5,12 @@
     <string name="button_text3">Order Deluxe Pizza</string>
     <string name="button_text4">Order Hawaiian Pizza</string>
     <string name="button_text5">Order Pepperoni Pizza</string>
+    <string name="number">Customer Phone Number</string>
+    <string name="subtotal">Subtotal:</string>
+    <string name="tax">Tax:</string>
+    <string name="total">Total:</string>
+    <string name="remove">Remove</string>
+    <string name="place">Place Order</string>
+    <string name = "orderCart"> Order Cart </string>
+    <string name = "orderView"> Order View </string>
 </resources>

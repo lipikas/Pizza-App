@@ -137,6 +137,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_column="1"
+                android:onClick="order"
                 android:src="@drawable/storeorders" />
 
             <ImageView
@@ -144,6 +145,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_column="2"
+                android:onClick="orderList"
                 android:src="@drawable/cart" />
 
         </TableRow>

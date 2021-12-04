@@ -33,4 +33,13 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("pepperoni", INTENT_MESSAGE);
         startActivity(intent);
     }
+
+    public void order(View view){
+        Intent intent = new Intent(this, OrderCart.class);
+        startActivity(intent);
+    }
+    public void orderList(View view){
+        Intent intent = new Intent(this, OrderView.class);
+        startActivity(intent);
+    }
 }

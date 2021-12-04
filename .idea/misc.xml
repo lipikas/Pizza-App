@@ -6,7 +6,9 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.321025641025641" />
         <entry key="app/src/main/res/layout/activity_current_order.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_order_cart.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/layout/activity_order_cart.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_order_cart2.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_order_view.xml" value="0.335" />
         <entry key="app/src/main/res/layout/current_order.xml" value="0.22667798745115852" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.15900900900900902" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.15900900900900902" />
@@ -18,5 +20,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.335" />
+      </ProjectState>
+    </option>
   </component>
 </project>
