@@ -7,8 +7,8 @@
     android:layout_marginTop="3dp">
 
     <ScrollView
-        android:layout_width="418dp"
-        android:layout_height="618dp">
+        android:layout_width="405dp"
+        android:layout_height="160dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center_horizontal"
-                    android:text="TextView" />
+                    android:text="@string/number" />
 
                 <Spinner
                     android:id="@+id/spinner2"
@@ -46,13 +46,6 @@
                     android:layout_height="51dp"
                     android:contentDescription="Hello"
                     android:gravity="center_horizontal" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="409dp"
-                android:layout_height="206dp"
-                android:gravity="center_horizontal">
-
             </TableRow>
 
             <TableRow
@@ -76,25 +69,32 @@
                     android:text="TextView" />
             </TableRow>
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/remove"
-                    android:textColor="#424242" />
-            </TableRow>
-
         </LinearLayout>
     </ScrollView>
+
+    <TableRow
+        android:id="@+id/listView2"
+        android:layout_width="410dp"
+        android:layout_height="208dp"
+        android:gravity="center_horizontal"
+        tools:layout_editor_absoluteY="165dp">
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="420dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/listView2"
+        tools:layout_editor_absoluteX="-7dp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove"
+            android:textColor="#424242" />
+    </TableRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,13 +6,15 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/scrollView2"
+        android:layout_width="411dp"
+        android:layout_height="213dp"
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView17"
@@ -26,47 +28,34 @@
                 app:autoSizeMaxTextSize="0dp"
                 app:autoSizeMinTextSize="0dp" />
 
-            <TableRow
-                android:layout_width="401dp"
-                android:layout_height="58dp"
-                android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="144dp"
-                    android:layout_height="36dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="40dp"
-                    android:width="3dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/number"
-                    android:textSize="16sp"
-                    app:autoSizeMaxTextSize="0dp"
-                    app:autoSizeMinTextSize="0dp" />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="117dp"
-                    android:layout_height="32dp"
-                    android:gravity="center_horizontal"
-                    android:text="phone"
-                    android:textSize="16sp" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="388dp"
-                android:layout_height="274dp"
-                android:layout_marginTop="52dp">
-
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </TableRow>
-
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="144dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="40dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/number"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="117dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textSize="16sp" />
+
+                </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -137,42 +126,61 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
                         android:text="TextView" />
+
                 </TableRow>
 
             </TableLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/button5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@string/place"
-                    android:textColor="#424242" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
-
-                <Button
-                    android:id="@+id/button3"
-                    android:layout_width="129dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginLeft="50dp"
-                    android:baselineAligned="false"
-                    android:text="@string/remove"
-                    android:textColor="#424242" />
-            </TableRow>
-
         </LinearLayout>
     </ScrollView>
+
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="408dp"
+        android:layout_height="212dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="396dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableRow">
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:layout_margin="10dp"
+            android:minHeight="48dp"
+            android:text="@string/place"
+            android:textColor="#424242" />
+
+        <Button
+            android:id="@+id/removeButton"
+            android:layout_width="130dp"
+            android:layout_height="61dp"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="50dp"
+            android:baselineAligned="false"
+            android:minHeight="48dp"
+            android:onClick="removePizza"
+            android:text="@string/remove"
+            android:textColor="#424242" />
+
+    </TableRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

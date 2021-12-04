@@ -7,13 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
+    public static final String number = "123";
+    public ArrayList<String> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        list.add("A");
+        list.add("B");
+        list.add("B");
+        list.add("B");
+        list.add("B");
     }
 
     public void createDeluxeOrder(View view) {
@@ -36,10 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void order(View view){
         Intent intent = new Intent(this, OrderCart.class);
+        intent.putExtra("number", number);
+        intent.putExtra("arr", list);
         startActivity(intent);
     }
     public void orderList(View view){
         Intent intent = new Intent(this, OrderView.class);
+        intent.putExtra("arr", list);
         startActivity(intent);
     }
 }
