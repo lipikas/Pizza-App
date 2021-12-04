@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Button;
-import 	android.view.View;
+import android.view.View;
 
 
 public class OrderCart extends AppCompatActivity {
@@ -19,6 +19,9 @@ public class OrderCart extends AppCompatActivity {
     public static ArrayList<String> list = new ArrayList<>();
     public static ListView list1;
     public static ArrayAdapter<String> adapter = null;
+    public static ListView select = null;
+    String val = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +42,44 @@ public class OrderCart extends AppCompatActivity {
         list1.setAdapter(adapter);
     }
 //    @Override
+//    protected void onResume(){
+//
+//    }
+//    @Override
+//    protected void onStart(){
+//
+//    }
+    public void itemSelect(View view){
+        select.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                val =(String) adapterView.getItemAtPosition(position);
+            }
+//            @Override
+//            public abstract void onNothingSelected(AdapterView<?> adapterView) {
+//                // your stuff
+//            }
+        });
+    }
+
+//    @Override
 //    public abstract void onItemClick(AdapterView<?> adapter1, View v, int position,
 //                            long arg3) {
-//        String value = (String) adapter1.getItemAtPosition(position);
+//        val = (String) adapter1.getItemAtPosition(position);
 //        adapter.remove(value);
 //        adapter.notifyDataSetChanged();
 //    }
-
-    public void removePizza(){
+    public void removePizza(View view){
         final Button button = (Button) findViewById(R.id.removeButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Perform action on click
+                if(!val.equals("")){
+                    adapter.remove(val);
+                    adapter.notifyDataSetChanged();
+                }
+
             }
         });
     }
+
 }
