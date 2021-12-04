@@ -5,4 +5,7 @@
     <string name="button_text3">Order Deluxe Pizza</string>
     <string name="button_text4">Order Hawaiian Pizza</string>
     <string name="button_text5">Order Pepperoni Pizza</string>
+    <string name="button_text6">Add</string>
+    <string name="button_text7">Remove</string>
+    <string name="button_text8">Add Order</string>
 </resources>
