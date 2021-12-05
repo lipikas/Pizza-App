@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void addOrder(Pizza newPizza){
         orders.add(newPizza);
+        for(Pizza order : orders){
+            System.out.println(order.toString());
+        }
     }
 
     /**
