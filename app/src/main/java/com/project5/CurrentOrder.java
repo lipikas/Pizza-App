@@ -100,7 +100,7 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
      * Removes a topping from the current pizza
      */
     public void removeTopping(View view) {
-        if(selectedToppings.getAdapter().getCount() == 1){
+        if(selectedToppings.getAdapter().getCount() == 0){
             createAlert("All toppings removed.", "Error!");
             return;
         }
