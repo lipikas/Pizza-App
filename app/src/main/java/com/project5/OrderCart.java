@@ -1,25 +1,30 @@
 package com.project5;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.widget.TextView;
-import java.util.List;
-import java.util.ArrayList;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Button;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class OrderCart extends AppCompatActivity {
+public class OrderCart extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
     private TextView Text;
-    public static ArrayList<String> list = new ArrayList<>();
-    public static ListView list1;
+    public static ArrayList<String> list  = new ArrayList<>();
+    public static ListView pizzaList;
     public static ArrayAdapter<String> adapter = null;
-    public static ListView select = null;
+    public static String selectedPizza = null;
     String val = "";
 
     @Override
@@ -31,15 +36,14 @@ public class OrderCart extends AppCompatActivity {
         Text = findViewById(R.id.phone);
         if(b!=null) {
             list = (ArrayList<String>) iin.getSerializableExtra("arr");
-            String j =(String) b.get("number");
+            String j = (String) b.get("number");
             Text.setText(j);
-//            list = (List) b.get("arr");
+
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+            pizzaList = (ListView) findViewById(R.id.listView);
+            pizzaList.setOnItemClickListener(this);
+            pizzaList.setAdapter(adapter);
         }
-        adapter=new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, list);
-//        setListAdapter(adapter);
-        list1 = (ListView) findViewById(R.id.listView);
-        list1.setAdapter(adapter);
     }
 //    @Override
 //    protected void onResume(){
@@ -49,18 +53,18 @@ public class OrderCart extends AppCompatActivity {
 //    protected void onStart(){
 //
 //    }
-    public void itemSelect(View view){
-        select.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                val =(String) adapterView.getItemAtPosition(position);
-            }
+//    public void itemSelect(View view){
+//        select.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
-//            public abstract void onNothingSelected(AdapterView<?> adapterView) {
-//                // your stuff
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                val =(String) adapterView.getItemAtPosition(position);
 //            }
-        });
-    }
+////            @Override
+////            public abstract void onNothingSelected(AdapterView<?> adapterView) {
+////                // your stuff
+////            }
+//        });
+//    }
 
 //    @Override
 //    public abstract void onItemClick(AdapterView<?> adapter1, View v, int position,
@@ -70,16 +74,37 @@ public class OrderCart extends AppCompatActivity {
 //        adapter.notifyDataSetChanged();
 //    }
     public void removePizza(View view){
-        final Button button = (Button) findViewById(R.id.removeButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(!val.equals("")){
-                    adapter.remove(val);
-                    adapter.notifyDataSetChanged();
-                }
+        if(selectedPizza == null){
+            createAlert("Select a pizza order to remove", "Error!");
+        } else{
+            ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
+            selectedPizza = null;
+        }
+    }
 
+    public void createAlert(String message, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle(title);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
             }
         });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        System.out.println("ID: " + parent.equals(selectedToppings));
+        if(parent.equals(pizzaList)) selectedPizza = (String) pizzaList.getItemAtPosition(position);
+        System.out.println("Selected Pizza: " + selectedPizza);
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) { }
 
 }

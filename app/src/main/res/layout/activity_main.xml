@@ -183,6 +183,7 @@
                         android:layout_column="1"
                         android:layout_marginLeft="10dp"
                         android:gravity="center_horizontal"
+                        android:onClick="orderCart"
                         android:text="@string/orderCart"
                         tools:enabled="false" />
 
@@ -193,6 +194,7 @@
                         android:layout_column="2"
                         android:layout_marginLeft="50dp"
                         android:gravity="center_horizontal"
+                        android:onClick="@string/orderView"
                         android:text="@string/orderView"
                         tools:enabled="false" />
                 </TableRow>

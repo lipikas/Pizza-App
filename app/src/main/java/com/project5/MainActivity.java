@@ -20,7 +20,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
     private List<Pizza> orders = new ArrayList<>();
-    public static final String number = "123";
+    public static String number = "";
     public ArrayList<String> list = new ArrayList<>();
 
     @Override
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void enterButton(View view){
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
+        number = phoneNum.toString();
         if(phoneNum.getText().length() != 10){
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Invalid Phone Number");
@@ -141,13 +142,13 @@ public class MainActivity extends AppCompatActivity {
         formattedAmount += "." + amountAsString.substring(indexOfDecimalPoint + 1, endOfDecimal);
         return formattedAmount;
     }
-    public void order(View view){
+    public void orderCart(View view){
         Intent intent = new Intent(this, OrderCart.class);
         intent.putExtra("number", number);
         intent.putExtra("arr", list);
         startActivity(intent);
     }
-    public void orderList(View view){
+    public void orderView(View view){
         Intent intent = new Intent(this, OrderView.class);
         intent.putExtra("arr", list);
         startActivity(intent);
