@@ -31,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
         btn6.setEnabled(false);
         Button btn7 = (Button) findViewById(R.id.view);
         btn7.setEnabled(false);
+        list.add("A");
+        list.add("B");
     }
 
     public void enterButton(View view){
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
-        number = phoneNum.toString();
+        number = phoneNum.getText().toString();
         if(phoneNum.getText().length() != 10){
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Invalid Phone Number");
@@ -142,13 +144,13 @@ public class MainActivity extends AppCompatActivity {
         formattedAmount += "." + amountAsString.substring(indexOfDecimalPoint + 1, endOfDecimal);
         return formattedAmount;
     }
-    public void orderCart(View view){
-        Intent intent = new Intent(this, OrderCart.class);
+    public void orderCart1(View view){
+        Intent intent = new Intent(this, OrderCart2.class);
         intent.putExtra("number", number);
         intent.putExtra("arr", list);
         startActivity(intent);
     }
-    public void orderView(View view){
+    public void orderView1(View view){
         Intent intent = new Intent(this, OrderView.class);
         intent.putExtra("arr", list);
         startActivity(intent);

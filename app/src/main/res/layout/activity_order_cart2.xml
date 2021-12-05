@@ -147,11 +147,8 @@
 
         <ListView
             android:id="@+id/listView"
-            android:layout_width="324dp"
-            android:layout_height="186dp"
-            android:layout_gravity="center_horizontal"
-            android:onClick="itemSelect" />
-
+            android:layout_width="288dp"
+            android:layout_height="159dp" />
     </TableRow>
 
     <TableRow
@@ -162,29 +159,6 @@
         android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow">
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="61dp"
-            android:layout_margin="10dp"
-            android:minHeight="48dp"
-            android:text="@string/place"
-            android:textColor="#424242" />
-
-        <Button
-            android:id="@+id/removeButton"
-            android:layout_width="130dp"
-            android:layout_height="61dp"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="50dp"
-            android:baselineAligned="false"
-            android:minHeight="48dp"
-            android:onClick="removePizza"
-            android:text="@string/remove"
-            android:textColor="#424242" />
-
-    </TableRow>
+        app:layout_constraintTop_toBottomOf="@+id/tableRow"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

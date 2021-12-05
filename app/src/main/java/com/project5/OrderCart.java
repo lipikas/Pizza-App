@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderCart extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
+public class OrderCart extends AppCompatActivity{
     private TextView Text;
     public static ArrayList<String> list  = new ArrayList<>();
     public static ListView pizzaList;
@@ -39,10 +39,10 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
             String j = (String) b.get("number");
             Text.setText(j);
 
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-            pizzaList = (ListView) findViewById(R.id.listView);
-            pizzaList.setOnItemClickListener(this);
-            pizzaList.setAdapter(adapter);
+//            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+//            pizzaList = (ListView) findViewById(R.id.listView);
+////            pizzaList.setOnItemClickListener(this);
+//            pizzaList.setAdapter(adapter);
         }
     }
 //    @Override
@@ -74,12 +74,16 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
 //        adapter.notifyDataSetChanged();
 //    }
     public void removePizza(View view){
-        if(selectedPizza == null){
-            createAlert("Select a pizza order to remove", "Error!");
-        } else{
-            ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
-            selectedPizza = null;
-        }
+//        if(pizzaList.getAdapter().getCount() == 0){
+//            createAlert("No pizzas to remove.", "Error!");
+//        }
+//        else if(selectedPizza == null){
+//            createAlert("Select a pizza order to remove", "Error!");
+//        } else{
+//            ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
+//            list.remove(selectedPizza);
+//            selectedPizza = null;
+//        }
     }
 
     public void createAlert(String message, String title){
@@ -93,18 +97,18 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        System.out.println("ID: " + parent.equals(selectedToppings));
-        if(parent.equals(pizzaList)) selectedPizza = (String) pizzaList.getItemAtPosition(position);
-        System.out.println("Selected Pizza: " + selectedPizza);
-    }
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
+//
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////        System.out.println("ID: " + parent.equals(selectedToppings));
+////        if(parent.equals(pizzaList)) selectedPizza = (String) pizzaList.getItemAtPosition(position);
+////        System.out.println("Selected Pizza: " + selectedPizza);
+//    }
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) { }
 
 }
