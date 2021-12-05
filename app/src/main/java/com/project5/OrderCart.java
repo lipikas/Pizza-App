@@ -50,10 +50,10 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
 //    protected void onResume(){
 //
 //    }
-    @Override
-    protected void onPause(){
-
-    }
+//    @Override
+//    protected void onPause(){
+//
+//    }
 
 
     public void createAlert(String message, String title){
@@ -92,8 +92,8 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         }
         ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
         list.remove(selectedPizza);
-        PizzaApplication app = (PizzaApplication) getApplicationContext();
-        app.setList(list);
+//        PizzaApplication app = (PizzaApplication) getApplicationContext();
+//        app.setList(list);
     }
 
     public void placeOrder(View view){
