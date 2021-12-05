@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 import org.w3c.dom.Text;
 
@@ -19,11 +20,17 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
     private List<Pizza> orders = new ArrayList<>();
+    public static final String number = "123";
+    public ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button btn6 = (Button) findViewById(R.id.cart);
+        btn6.setEnabled(false);
+        Button btn7 = (Button) findViewById(R.id.view);
+        btn7.setEnabled(false);
     }
 
     public void enterButton(View view){
@@ -60,8 +67,13 @@ public class MainActivity extends AppCompatActivity {
         btn4.setEnabled(b);
         Button btn5 = (Button) findViewById(R.id.enter);
         btn5.setEnabled(!b);
+        Button btn6 = (Button) findViewById(R.id.cart);
+        btn6.setEnabled(b);
+        Button btn7 = (Button) findViewById(R.id.view);
+        btn7.setEnabled(b);
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
         phoneNum.setEnabled(!b);
+
     }
 
     public void createDeluxeOrder(View view) {
@@ -125,5 +137,16 @@ public class MainActivity extends AppCompatActivity {
         int endOfDecimal = Math.min(indexOfDecimalPoint + 3, amountAsString.length());
         formattedAmount += "." + amountAsString.substring(indexOfDecimalPoint + 1, endOfDecimal);
         return formattedAmount;
+    }
+    public void order(View view){
+        Intent intent = new Intent(this, OrderCart.class);
+        intent.putExtra("number", number);
+        intent.putExtra("arr", list);
+        startActivity(intent);
+    }
+    public void orderList(View view){
+        Intent intent = new Intent(this, OrderView.class);
+        intent.putExtra("arr", list);
+        startActivity(intent);
     }
 }
