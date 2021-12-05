@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderCart extends AppCompatActivity{
+public class OrderCart extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
     private TextView Text;
     public static ArrayList<String> list  = new ArrayList<>();
     public static ListView pizzaList;
     public static ArrayAdapter<String> adapter = null;
     public static String selectedPizza = null;
+    public static List<List<String>> orderList = new ArrayList<>();
     String val = "";
 
     @Override
@@ -39,52 +40,21 @@ public class OrderCart extends AppCompatActivity{
             String j = (String) b.get("number");
             Text.setText(j);
 
-//            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-//            pizzaList = (ListView) findViewById(R.id.listView);
-////            pizzaList.setOnItemClickListener(this);
-//            pizzaList.setAdapter(adapter);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+            pizzaList = (ListView) findViewById(R.id.listView);
+            pizzaList.setOnItemClickListener(this);
+            pizzaList.setAdapter(adapter);
         }
     }
 //    @Override
 //    protected void onResume(){
 //
 //    }
-//    @Override
-//    protected void onStart(){
-//
-//    }
-//    public void itemSelect(View view){
-//        select.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                val =(String) adapterView.getItemAtPosition(position);
-//            }
-////            @Override
-////            public abstract void onNothingSelected(AdapterView<?> adapterView) {
-////                // your stuff
-////            }
-//        });
-//    }
+    @Override
+    protected void onPause(){
 
-//    @Override
-//    public abstract void onItemClick(AdapterView<?> adapter1, View v, int position,
-//                            long arg3) {
-//        val = (String) adapter1.getItemAtPosition(position);
-//        adapter.remove(value);
-//        adapter.notifyDataSetChanged();
-//    }
-    public void removePizza(View view){
-//        if(pizzaList.getAdapter().getCount() == 0){
-//            createAlert("No pizzas to remove.", "Error!");
-//        }
-//        else if(selectedPizza == null){
-//            createAlert("Select a pizza order to remove", "Error!");
-//        } else{
-//            ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
-//            list.remove(selectedPizza);
-//            selectedPizza = null;
-//        }
     }
+
 
     public void createAlert(String message, String title){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -97,18 +67,43 @@ public class OrderCart extends AppCompatActivity{
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-//
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////        System.out.println("ID: " + parent.equals(selectedToppings));
-////        if(parent.equals(pizzaList)) selectedPizza = (String) pizzaList.getItemAtPosition(position);
-////        System.out.println("Selected Pizza: " + selectedPizza);
-//    }
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) { }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        System.out.println("ID: " + parent.equals(selectedToppings));
+        if(parent.equals(pizzaList)) selectedPizza = (String) pizzaList.getItemAtPosition(position);
+        System.out.println("Selected Pizza: " + selectedPizza);
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) { }
+
+    public void removePizza(View view){
+        if(list.size() == 0){
+            createAlert("No pizzas in the list.", "Error!");
+            return;
+        }
+        if(selectedPizza == null){
+            createAlert("Please select a pizza to remove.", "Error!");
+            return;
+        }
+        ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
+        list.remove(selectedPizza);
+    }
+
+    public void placeOrder(View view){
+        if(list.size() == 0){
+            createAlert("No pizzas in the list.", "Error!");
+            return;
+        }
+        orderList.add(list);
+        list = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        pizzaList = (ListView) findViewById(R.id.listView);
+        pizzaList.setAdapter(adapter);
+    }
 
 }

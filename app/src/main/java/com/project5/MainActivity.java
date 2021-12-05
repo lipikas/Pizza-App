@@ -8,11 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ImageView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         return formattedAmount;
     }
     public void orderCart1(View view){
-        Intent intent = new Intent(this, OrderCart2.class);
+        Intent intent = new Intent(this, OrderCart.class);
         intent.putExtra("number", number);
         intent.putExtra("arr", list);
         startActivity(intent);

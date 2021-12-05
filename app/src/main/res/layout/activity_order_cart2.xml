@@ -7,8 +7,8 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="411dp"
-        android:layout_height="213dp"
+        android:layout_width="409dp"
+        android:layout_height="190dp"
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
@@ -29,8 +29,8 @@
                 app:autoSizeMinTextSize="0dp" />
 
             <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="381dp"
+                android:layout_height="wrap_content">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -136,12 +136,13 @@
 
     <TableRow
         android:id="@+id/tableRow"
-        android:layout_width="408dp"
-        android:layout_height="212dp"
+        android:layout_width="377dp"
+        android:layout_height="167dp"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
@@ -153,12 +154,32 @@
 
     <TableRow
         android:id="@+id/tableRow3"
-        android:layout_width="396dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center_horizontal"
+        android:layout_width="378dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal|center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow"/>
+        app:layout_constraintTop_toBottomOf="@+id/tableRow">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_horizontal"
+            android:onClick="placeOrder"
+            android:text="@string/place" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:gravity="center_horizontal"
+            android:onClick="removePizza"
+            android:text="@string/remove" />
+    </TableRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
