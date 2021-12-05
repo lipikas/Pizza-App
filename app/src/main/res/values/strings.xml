@@ -8,4 +8,12 @@
     <string name="button_text6">Add</string>
     <string name="button_text7">Remove</string>
     <string name="button_text8">Add Order</string>
+    <string name="number">Customer Phone #</string>
+    <string name="orderCart">Order Cart</string>
+    <string name="orderView">Order View</string>
+    <string name="tax">Tax:</string>
+    <string name="total">Total:</string>
+    <string name="subtotal">SubTotal:</string>
+    <string name="remove">Remove</string>
+    <string name="place">Place Order</string>
 </resources>
