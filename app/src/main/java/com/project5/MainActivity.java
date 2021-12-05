@@ -15,20 +15,22 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
-    private List<Pizza> orders = new ArrayList<>();
+    private static List<Pizza> orders = new ArrayList<>();
+    private static List<Order> orderList = new ArrayList<>();
     public static String number = "";
     public ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        list.add("A");
+        list.add("B");
+
         setContentView(R.layout.activity_main);
         Button btn6 = (Button) findViewById(R.id.cart);
         btn6.setEnabled(false);
         Button btn7 = (Button) findViewById(R.id.view);
         btn7.setEnabled(false);
-        list.add("A");
-        list.add("B");
     }
 
     public void enterButton(View view){
@@ -141,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
         return formattedAmount;
     }
     public void orderCart1(View view){
+//        PizzaApplication app = (PizzaApplication) getApplicationContext();
+//        app.setList(list);
         Intent intent = new Intent(this, OrderCart.class);
         intent.putExtra("number", number);
         intent.putExtra("arr", list);

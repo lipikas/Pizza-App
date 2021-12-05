@@ -92,6 +92,8 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         }
         ((ArrayAdapter) pizzaList.getAdapter()).remove(selectedPizza);
         list.remove(selectedPizza);
+        PizzaApplication app = (PizzaApplication) getApplicationContext();
+        app.setList(list);
     }
 
     public void placeOrder(View view){
@@ -104,6 +106,8 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         pizzaList = (ListView) findViewById(R.id.listView);
         pizzaList.setAdapter(adapter);
+//        PizzaApplication app = (PizzaApplication) getApplicationContext();
+//        app.setList(list);
     }
 
 }
