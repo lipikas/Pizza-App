@@ -79,25 +79,13 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         return true;
     }
 
-    public void createAlert(String message, String title){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setTitle(title);
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
     public void removePizza(View view){
         if(pizzaList.size() == 0){
             createAlert("No pizzas in the list.", "Error!");
             return;
         }
         if(selectedPizza == null){
-            createAlert("Please select a pizza to remove.", "Error!");
+           createAlert("Please select a pizza to remove.", "Error!");
             return;
         }
         ((ArrayAdapter) pizzaView.getAdapter()).remove(selectedPizza);
@@ -139,6 +127,19 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         pizzaList = new ArrayList<>();
         update();
         setAmount();
+    }
+
+    //Creates an alert with the message and title passed as an argument
+    public void createAlert(String message, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle(title);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 
     public void update(){

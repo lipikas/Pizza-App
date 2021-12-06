@@ -79,6 +79,19 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         return true;
     }
 
+    //Creates an alert with the message and title passed as an argument
+    public void createAlert(String message, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle(title);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+
     public void removeOrderList(View view){
         if(selectedNumber == null){
             createAlert("Please add an order!", "Error!");
@@ -95,18 +108,6 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         orderList = new ArrayList<>();
         updateList();
         total.setText("");
-    }
-
-    public void createAlert(String message, String title){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setTitle(title);
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
     }
 
     @Override

@@ -116,6 +116,18 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
         selectedTopping = null;
         updatePrice();
     }
+    //Creates an alert with the message and title passed as an argument
+    public void createAlert(String message, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle(title);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
 
     //Removes a topping from the current pizza
     public void removeTopping(View view) {
@@ -134,19 +146,6 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
         currPizza.toppings.remove(selectedTopping);
         selectedTopping = null;
         updatePrice();
-    }
-
-    //Creates an alert with the message and title passed as an argument
-    public void createAlert(String message, String title){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setTitle(title);
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
     }
 
     //Sets the isSelectedTopping boolean value when back button in action bar is clicked
