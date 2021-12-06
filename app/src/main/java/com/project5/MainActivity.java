@@ -21,12 +21,23 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity{
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
     private static List<Pizza> orders = new ArrayList<>();
+    private static List<Order> orderList = new ArrayList<>();
+    public static String number = "";
+    public ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("lifecycle", "on create invoked");
+        list.add("A");
+        list.add("B");
+
+        setContentView(R.layout.activity_main);
+        Button btn6 = (Button) findViewById(R.id.cart);
+        btn6.setEnabled(false);
+        Button btn7 = (Button) findViewById(R.id.view);
+        btn7.setEnabled(false);
     }
 
     public void enterButton(View view){
@@ -65,6 +76,10 @@ public class MainActivity extends AppCompatActivity{
         btn5.setEnabled(!b);
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
         phoneNum.setEnabled(!b);
+        Button btn6 = (Button) findViewById(R.id.cart);
+        btn6.setEnabled(b);
+        Button btn7 = (Button) findViewById(R.id.view);
+        btn7.setEnabled(b);
     }
 
     public void createDeluxeOrder(View view) {
@@ -143,5 +158,18 @@ public class MainActivity extends AppCompatActivity{
     protected void onPause() {
         super.onPause();
         Log.d("lifecycle","onPause invoked");
+    }
+    public void orderCart1(View view){
+//        PizzaApplication app = (PizzaApplication) getApplicationContext();
+//        app.setList(list);
+        Intent intent = new Intent(this, OrderCart.class);
+        intent.putExtra("number", number);
+        intent.putExtra("arr", list);
+        startActivity(intent);
+    }
+    public void orderView1(View view){
+        Intent intent = new Intent(this, OrderView.class);
+        intent.putExtra("arr", list);
+        startActivity(intent);
     }
 }
