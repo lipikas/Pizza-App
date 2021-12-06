@@ -16,8 +16,8 @@
             android:orientation="vertical" >
 
             <TableLayout
-                android:layout_width="393dp"
-                android:layout_height="585dp"
+                android:layout_width="399dp"
+                android:layout_height="match_parent"
                 android:isScrollContainer="false"
                 android:paddingTop="10dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="false">
@@ -173,7 +173,8 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="49dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_horizontal">
 
                     <Button

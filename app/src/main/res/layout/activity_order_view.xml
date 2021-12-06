@@ -7,8 +7,12 @@
     android:layout_marginTop="3dp">
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="405dp"
-        android:layout_height="160dp">
+        android:layout_height="160dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,36 +67,43 @@
                     android:text="@string/total" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/totalAmount1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="wrap_content" />
             </TableRow>
 
         </LinearLayout>
     </ScrollView>
 
     <TableRow
-        android:id="@+id/listView2"
+        android:id="@+id/tableRow2"
         android:layout_width="410dp"
         android:layout_height="208dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-        tools:layout_editor_absoluteY="165dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3">
 
+        <ListView
+            android:id="@+id/listView2"
+            android:layout_width="367dp"
+            android:layout_height="190dp" />
     </TableRow>
 
     <TableRow
-        android:layout_width="420dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="2dp"
+        android:layout_width="411dp"
+        android:layout_height="49dp"
         android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/listView2"
-        tools:layout_editor_absoluteX="-7dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableRow2">
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="107dp"
+            android:layout_height="match_parent"
+            android:onClick="removeOrderList"
             android:text="@string/remove"
             android:textColor="#424242" />
     </TableRow>

@@ -1,6 +1,5 @@
 package com.project5;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,10 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +20,8 @@ public class MainActivity extends AppCompatActivity{
     private static StoreOrders orderList = new StoreOrders();
     public static String number = "";
     public static ArrayList<String> list = new ArrayList<>();
+    public static ArrayList<String> numberList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void enterButton(View view){
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
+
         if(phoneNum.getText().length() != 10){
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Invalid Phone Number");
@@ -54,7 +53,12 @@ public class MainActivity extends AppCompatActivity{
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-        else isEnabled(true);
+        else {
+            number = phoneNum.getText().toString();
+            isEnabled(true);
+            orders = new ArrayList<>();
+            list = new ArrayList<>();
+        }
     }
 
     public void changeButton(View view){
@@ -102,7 +106,9 @@ public class MainActivity extends AppCompatActivity{
         orders.add(newPizza);
         String pizzaType ="";
         String name = newPizza.getClass().getName();
-        name = name.substring(10);
+
+        name = name.substring(13);
+        System.out.println("pizzzza: " + name);
         if(name.compareTo("DeluxePizza") == 0) pizzaType = "Deluxe";
         else if(name.compareTo("HawaiianPizza") == 0)   pizzaType = "Hawaiian";
         else pizzaType = "Pepperoni";
@@ -171,17 +177,14 @@ public class MainActivity extends AppCompatActivity{
         Log.d("lifecycle","onPause invoked");
     }
     public void orderCart1(View view){
-//        PizzaApplication app = (PizzaApplication) getApplicationContext();
-//        app.setList(list);
-        Intent intent = new Intent(this, OrderCart2.class);
+        Intent intent = new Intent(this, OrderCart.class);
         intent.putExtra("number", number);
-//        intent.putExtra("order", orders);
         intent.putExtra("list", list);
         startActivity(intent);
     }
     public void orderView1(View view){
         Intent intent = new Intent(this, OrderView.class);
-//        intent.putExtra("orderList", orderList);
+        intent.putExtra("numberList", numberList);
         startActivity(intent);
     }
     public static void setPizza(ArrayList<Pizza> order){
@@ -190,6 +193,13 @@ public class MainActivity extends AppCompatActivity{
     }
     public static void addOrder(Order order){
         orderList.orderAdd(order);
+        if(!numberList.contains(number)) numberList.add(number);
+//        List<Order> order1 = orderList.getOrders();
+//        List<Pizza> pizza = order1.get(0).getPizza();
+//        System.out.println("Hiiii");
+//        for(int i=0; i < pizza.size(); i++){
+//            System.out.println(pizza.get(i).toString());
+//        }
     }
     public static void removePizza(Pizza pizza, boolean val, List<Toppings> toppingList, double sum, Size size){
         for (int j = 0; j < orders.size(); j++){
@@ -231,6 +241,51 @@ public class MainActivity extends AppCompatActivity{
         return sum;
     }
 
+    public static ArrayList<String> printList(String phone){
+        String amountTotal = "";
+        double amount = 0;
+        List<Order> list1 = orderList.getOrders();
+        List<Pizza> pizza = new ArrayList<>();
+        int i = 0;
+        for(i = 0; i < list1.size(); i++) {
+            if (list1.get(i).getNumber().compareTo(phone) == 0) {
+                pizza = list1.get(i).getPizza();
+                break;
+            }
+        }
+        ArrayList<String> result2 = new ArrayList<>();
+
+        for(int j = 0; j < pizza.size(); j++){
+            String pizzaType ="";
+            String name = pizza.get(j).getClass().getName();
+            name = name.substring(10);
+            if(name.compareTo("DeluxePizza") == 0) pizzaType = "Deluxe";
+            else if(name.compareTo("HawaiianPizza") == 0)   pizzaType = "Hawaiian";
+            else pizzaType = "Pepperoni";
+
+            result2.add(pizzaType +", " + pizza.get(j).toString());
+            amount += pizza.get(j).price();
+        }
+
+        if(amount > 0) {
+            amount += (amount*6.625/100);
+            amountTotal = formatAmount(amount);
+            list1.get(i).setTotal(Double.parseDouble(formatAmount(amount)));
+        }
+        result2.add(""+amount);
+        return result2;
+    }
+
+    public static void removeOrderList(String result){
+        List<Order> order = orderList.getOrders();
+        for(int i = 0; i < order.size(); i++){
+            if(order.get(i).getNumber().compareTo(result)==0){
+                order.remove(order.get(i));
+                break;
+            }
+        }
+        numberList.remove(result);
+    }
 
 
 
