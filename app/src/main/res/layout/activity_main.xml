@@ -32,7 +32,7 @@
                         android:layout_column="1"
                         android:paddingTop="20dp"
                         android:text="Customer Phone Number:"
-                        android:textColor="@color/purple_700" />
+                        android:textColor="@color/purple_500" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
