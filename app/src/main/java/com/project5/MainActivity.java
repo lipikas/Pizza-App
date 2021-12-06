@@ -1,20 +1,14 @@
 package com.project5;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +19,7 @@ public class MainActivity extends AppCompatActivity{
     public static String number = "";
     public static ArrayList<String> list = new ArrayList<>();
 
+    //Initializes Main Page Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +32,7 @@ public class MainActivity extends AppCompatActivity{
         btn7.setEnabled(false);
     }
 
+    //Checks if customer phone number is valid on click of the Enter button
     public void enterButton(View view){
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
         if(phoneNum.getText().length() != 10){
@@ -45,10 +41,12 @@ public class MainActivity extends AppCompatActivity{
         else isEnabled(true);
     }
 
+    //Enables changing the customer phone number
     public void changeButton(View view){
         isEnabled(false);
     }
 
+    //Enables or disables fields depending on the boolean parameter
     public void isEnabled(boolean b){
         Button btn1 = (Button) findViewById(R.id.deluxe);
         btn1.setEnabled(b);
@@ -68,24 +66,28 @@ public class MainActivity extends AppCompatActivity{
         btn7.setEnabled(b);
     }
 
+    //starts the Current Order activity in Deluxe Pizza type
     public void createDeluxeOrder(View view) {
         Intent intent = new Intent(this, CurrentOrder.class);
         intent.putExtra(INTENT_MESSAGE, "deluxe");
         startActivity(intent);
     }
 
+    //starts the Current Order activity in Hawaiian Pizza type
     public void createHawaiianOrder(View view) {
         Intent intent = new Intent(this, CurrentOrder.class);
         intent.putExtra(INTENT_MESSAGE, "hawaiian");
         startActivity(intent);
     }
 
+    //starts the Current Order activity in Pepperoni Pizza type
     public void createPepperoniOrder(View view) {
         Intent intent = new Intent(this, CurrentOrder.class);
         intent.putExtra(INTENT_MESSAGE, "pepperoni");
         startActivity(intent);
     }
 
+    //Adds new pizza to the order
     public static void addPizza(Pizza newPizza){
         orders.add(newPizza);
         String pizzaType ="";
@@ -94,20 +96,11 @@ public class MainActivity extends AppCompatActivity{
         if(name.compareTo("DeluxePizza") == 0) pizzaType = "Deluxe";
         else if(name.compareTo("HawaiianPizza") == 0)   pizzaType = "Hawaiian";
         else pizzaType = "Pepperoni";
-
         list.add(pizzaType +", " + newPizza.toString());
-
-//        for(int i = 0; i < orders.size(); i++){
-//            System.out.println(orders.get(i).toString());
-//        }
-//        System.out.println("size: " + orders.size());
+        Log.i("Order Added", "Pizza added to customer order")
     }
 
-    /**
-     * formats the amount
-     * @param amount is the amount given by user
-     * @return string format of amount
-     */
+    //Formats the price amount to 2 decimal places
     public static String formatAmount(double amount){
         int amountInInt = (int)amount;
         String intPart = Integer.toString(amountInInt);
@@ -144,6 +137,7 @@ public class MainActivity extends AppCompatActivity{
         return formattedAmount;
     }
 
+    //States what to do on resuming the function
     @Override
     protected void onResume() {
         super.onResume();
@@ -153,12 +147,15 @@ public class MainActivity extends AppCompatActivity{
             Log.i("Current Orders", o.toString());
         }
     }
+
+    //States what to do when pausing the function
     @Override
     protected void onPause() {
         super.onPause();
         Log.i("lifecycle","onPause() invoked");
     }
 
+    //Creates alert with the message and title passed as params
     public void createAlert(String message, String title){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setMessage(message);
@@ -170,6 +167,8 @@ public class MainActivity extends AppCompatActivity{
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
+
     public void orderCart1(View view){
 //        PizzaApplication app = (PizzaApplication) getApplicationContext();
 //        app.setList(list);
@@ -219,7 +218,6 @@ public class MainActivity extends AppCompatActivity{
 
     /**
      * gets order total
-     * @param pizza is pizza list
      * @return order total
      */
     public static double getTotal(){
