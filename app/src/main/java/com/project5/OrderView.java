@@ -2,6 +2,7 @@ package com.project5;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.os.Bundle;
@@ -31,15 +32,28 @@ public class OrderView extends AppCompatActivity {
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
 //        Text = findViewById(R.id.phone);
-        if(b!=null) {
-            list = (ArrayList<String>) iin.getSerializableExtra("arr");
-//            list = (List) b.get("arr");
-        }
-        adapter=new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        Spinner s = (Spinner) findViewById(R.id.spinner2);
+//        if(b!=null) {
+//            list = (ArrayList<String>) iin.getSerializableExtra("arr");
+////            list = (List) b.get("arr");
+//        }
+//        adapter=new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, list);
+//        Spinner s = (Spinner) findViewById(R.id.spinner2);
+//
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        s.setAdapter(adapter);
+    }
+    @Override
+    public void onBackPressed(){
+        System.out.println("on back pressed");
+        finish();// calls main activity's onresume
+    }
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s.setAdapter(adapter);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("on AB pressed");
+        finish();
+        System.out.println("method finished");
+        return true;
     }
 }

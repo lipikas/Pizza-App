@@ -74,11 +74,10 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/subTotal"
                         android:layout_width="97dp"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="TextView"
                         android:textSize="16sp" />
                 </TableRow>
 
@@ -98,11 +97,10 @@
                         android:text="@string/tax" />
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/taxAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="TextView" />
+                        android:gravity="center_horizontal" />
                 </TableRow>
 
                 <TableRow
@@ -121,11 +119,10 @@
                         android:text="@string/total" />
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/totalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="TextView" />
+                        android:gravity="center_horizontal" />
 
                 </TableRow>
 
@@ -174,7 +171,6 @@
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:gravity="center_horizontal"

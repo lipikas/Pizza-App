@@ -147,7 +147,7 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
 
     public void addOrder(View view){
         System.out.println("curr pizza added: " + currPizza);
-        MainActivity.addOrder(currPizza);
+        MainActivity.addPizza(currPizza);
         currPizza = PizzaMaker.createPizza(Character.toUpperCase(type.charAt(0)) + type.substring(1));
         setToppings();
     }
