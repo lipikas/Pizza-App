@@ -3,9 +3,11 @@ package com.project5;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,12 +16,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.MenuItem;
-import androidx.annotation.NonNull;
-
-import java.sql.SQLOutput;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-//test
+
 public class CurrentOrder extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private Pizza currPizza;
@@ -146,28 +146,26 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) { }
 
     public void addOrder(View view){
-        System.out.println("curr pizza added: " + currPizza);
+        Log.i("Pizza Added", "Pizza added to order:" + currPizza.toString());
         MainActivity.addOrder(currPizza);
         currPizza = PizzaMaker.createPizza(Character.toUpperCase(type.charAt(0)) + type.substring(1));
         setToppings();
+        setSizes();
+        displaySuccessMessage();
     }
 
     @Override
     public void onBackPressed(){
-        System.out.println("on back pressed");
         finish();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("on AB pressed");
         finish();
-        System.out.println("method finished");
         return true;
     }
 
     public void setToppings(){
-        //set toppings listview
         chosenToppings = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currPizza.toppings);
         List<Toppings> remainingToppings = new ArrayList<>();
         for(Toppings t : Toppings.values()){
@@ -183,11 +181,18 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
         updatePrice();
     }
 
-    public void setSizes(){
+    private void setSizes(){
         sizes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Size.values());
         spinner = findViewById(R.id.sizeSpinner);
         spinner.setOnItemSelectedListener(this);
         spinner.setAdapter(sizes);
+    }
+
+    private void displaySuccessMessage(){
+        Context context = getApplicationContext();
+        CharSequence text = "Order Added!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text, duration).show();
     }
 
 }

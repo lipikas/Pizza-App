@@ -26,24 +26,13 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("lifecycle", "on create invoked");
+        Log.i("lifecycle", "onCreate() invoked");
     }
 
     public void enterButton(View view){
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
         if(phoneNum.getText().length() != 10){
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Invalid Phone Number");
-            builder.setMessage("Please Enter a Valid 10-digit Phone Number!");
-            builder.setCancelable(false);
-            builder.setPositiveButton("Ok",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            createAlert("Please Enter a Valid 10-digit Phone Number!", "Invalid Phone Number");
         }
         else isEnabled(true);
     }
@@ -133,15 +122,27 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("lifecycle","onResume invoked");
+        Log.i("lifecycle","onResume() invoked");
         System.out.println("orders: \n");
         for(Pizza o : orders){
-            Log.d("Current Orders", o.toString());
+            Log.i("Current Orders", o.toString());
         }
     }
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("lifecycle","onPause invoked");
+        Log.i("lifecycle","onPause() invoked");
+    }
+
+    public void createAlert(String message, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle(title);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
     }
 }
