@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OrderCart2"
+            android:name=".OrderCart"
             android:exported="true"
             android:parentActivityName=".MainActivity">
 

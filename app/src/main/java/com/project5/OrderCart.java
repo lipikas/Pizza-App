@@ -1,8 +1,5 @@
 package com.project5;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,104 +10,82 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+//View Order Cart features
+//TODO - Toast instead of Alerts?????
 
 public class OrderCart extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
-    private TextView text;
-    private TextView tax;
-    private TextView total;
-    private TextView subtotal;
-    public static ArrayList<Pizza> pizza  = new ArrayList<>();
-    public static ListView pizzaView;
-    public static ArrayAdapter<String> adapter = null;
-    public static String selectedPizza = null;
-    public static ArrayList<String> pizzaList = new ArrayList<>();
-    public static String number = "";
+    private static TextView text;
+    private static TextView tax;
+    private static TextView total;
+    private static TextView subtotal;
+    private static ListView pizzaView;
+    private static ArrayAdapter<String> adapter = null;
+    private static String selectedPizza = null;
+    private static ArrayList<String> pizzaList = new ArrayList<>();
+    private static String number = "";
     private static double subtotal1;
     private static double tax1;
     private static double total1;
 
+    //Initializes the order cart activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_cart);
-        Intent iin= getIntent();
-        Bundle b = iin.getExtras();
+        Intent intent= getIntent();
+        Bundle bundle = intent.getExtras();
         text = findViewById(R.id.phone);
         tax = findViewById(R.id.taxAmount);
         total = findViewById(R.id.totalAmount);
         subtotal = findViewById(R.id.subTotal);
-        if(b!=null) {
-//            pizza = (ArrayList<Pizza>) iin.getSerializableExtra("order");
-            pizzaList = (ArrayList<String>) iin.getSerializableExtra("list");
-            number = (String) b.get("number");
+        if(bundle != null) {
+            pizzaList = (ArrayList<String>) intent.getSerializableExtra("list");
+            number = (String) bundle.get("number");
             text.setText(number);
-
-//            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pizzaList);
-//            pizzaView = (ListView) findViewById(R.id.listView);
-//            pizzaView.setOnItemClickListener(this);
-//            pizzaView.setAdapter(adapter);
-
-//            subtotal1 = getTotal(pizza);
-//            subtotal1 = Double.parseDouble(MainActivity.formatAmount(subtotal1));
-//
-//            subtotal.setText("$ " + subtotal1);
-//            tax1 = subtotal1*(6.625/100);
-//            tax1 = Double.parseDouble(MainActivity.formatAmount(tax1));
-//            tax.setText("$ " + tax1);
-//            total.setText("$ " +MainActivity.formatAmount(tax1 +  subtotal1));
-//            total1 = tax1 + subtotal1;
+            update();
+            setAmount();
         }
     }
-    /**
-     * gets order total
-     * @param pizza is pizza list
-     * @return order total
-     */
-    public double getTotal(List<Pizza> pizza){
-        double sum = 0;
-        for(int i = 0; i < pizza.size(); i++){
-            sum += pizza.get(i).price();
-        }
-
-        return sum;
-    }
-
-    public void createAlert(String message, String title){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setTitle(title);
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-
+    //Sets the selectedPizza when back button in action bar is clicked
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        System.out.println("ID: " + parent.equals(selectedToppings));
         if(parent.equals(pizzaView)) selectedPizza = (String) pizzaView.getItemAtPosition(position);
-        System.out.println("Selected Pizza: " + selectedPizza);
     }
+
+    //Nothing is changed when no listview selected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
     }
-
+    //does nothing when nothing is selected in the listview
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
 
+    //When back button at the bottom the screen is pressed
+    @Override
+    public void onBackPressed(){
+        finish();// calls main activity's onresume
+    }
+
+    //When back button in ActionBar is pressed
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
+    }
+    //remove Pizza from Order Cart
     public void removePizza(View view){
-        if(pizza.size() == 0){
+        if(pizzaList.size() == 0){
             createAlert("No pizzas in the list.", "Error!");
             return;
         }
         if(selectedPizza == null){
-            createAlert("Please select a pizza to remove.", "Error!");
+           createAlert("Please select a pizza to remove.", "Error!");
             return;
         }
         ((ArrayAdapter) pizzaView.getAdapter()).remove(selectedPizza);
@@ -118,6 +93,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         MainActivity.removePizzaList(selectedPizza);
         StringTokenizer token = new StringTokenizer(selectedPizza, ", ");
         String pizzaType = token.nextToken();
+
         List<Toppings> toppingList = new ArrayList<>();
         String top = "";
         while(token.hasMoreTokens()){
@@ -134,35 +110,62 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         double sum = Double.parseDouble(amount.nextToken());
 
         Pizza pizza = PizzaMaker.createPizza(pizzaType);
-
+        selectedPizza = null;
+        pizza.price = sum;
         pizza.toppings = toppingList;
         MainActivity.removePizza(pizza, false, toppingList, sum, size);
+        setAmount();
     }
 
+    //adds Pizza List to Order
     public void placeOrder(View view){
-        if(pizza.size() == 0){
+        if(pizzaList.size() == 0){
             createAlert("No pizzas in the list.", "Error!");
             return;
         }
-        MainActivity.addOrder(new Order(pizza, number, total1));// add to order list
+        MainActivity.addOrder(new Order(MainActivity.getPizzaList(), number, total1));// add to order list
         MainActivity.setPizza(new ArrayList<>());
-        pizza = new ArrayList<>();
+        pizzaList = new ArrayList<>();
+        update();
+        setAmount();
+    }
+
+    //Creates an alert with the message and title passed as an argument
+    public void createAlert(String message, String title){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(message);
+        alert.setTitle(title);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = alert.create();
+        dialog.show();
+    }
+    //updates listview
+    public void update(){
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pizzaList);
         pizzaView = (ListView) findViewById(R.id.listView);
+        pizzaView.setOnItemClickListener(this);
         pizzaView.setAdapter(adapter);
+        subtotal1 = MainActivity.getTotal();
     }
 
-    @Override
-    public void onBackPressed(){
-        System.out.println("on back pressed");
-        finish();// calls main activity's onresume
-    }
+    //Updates tax, total and subtotal
+    public void setAmount(){
+        if(subtotal1 == 0){
+            subtotal.setText("");
+            tax.setText("");
+            total.setText("");
+            return;
+        }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("on AB pressed");
-        finish();
-        System.out.println("method finished");
-        return true;
+        subtotal1 = Double.parseDouble(MainActivity.formatAmount(subtotal1));
+        subtotal.setText("$ " + subtotal1);
+        tax1 = subtotal1*(6.625/100);
+        tax1 = Double.parseDouble(MainActivity.formatAmount(tax1));
+        tax.setText("$ " + tax1);
+        total.setText("$ " +MainActivity.formatAmount(tax1 +  subtotal1));
+        total1 = tax1 + subtotal1;
     }
 }
