@@ -1,8 +1,8 @@
 package com.project5;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
 
     private Pizza currPizza;
     Spinner spinner;
+    String type;
     ListView selectedToppings;
     ListView generalToppings;
     Toppings selectedTopping;
@@ -29,7 +32,8 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
     ArrayAdapter<Toppings> allToppings;
     ArrayAdapter<Toppings> chosenToppings;
     ArrayAdapter<Size> sizes;
-    MainActivity mainPage;
+    static MainActivity mainPage;
+    Boolean isSelectedTopping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,8 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_order);
         Intent intent = getIntent();
-        String type = intent.getStringExtra(MainActivity.INTENT_MESSAGE);
+        type = intent.getStringExtra(MainActivity.INTENT_MESSAGE);
+
         currPizza = PizzaMaker.createPizza(Character.toUpperCase(type.charAt(0)) + type.substring(1));
 
         //set image
@@ -48,26 +53,13 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
         TextView textBox = (TextView) findViewById(R.id.pizzaType);
         textBox.setText(Character.toUpperCase(type.charAt(0)) + type.substring(1) + " Pizza");
 
-        //set size spinner
-        sizes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Size.values());
-        spinner = findViewById(R.id.sizeSpinner);
-        spinner.setOnItemSelectedListener(this);
-        spinner.setAdapter(sizes);
+        setSizes();
 
-        //set toppings listview
-        chosenToppings = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currPizza.toppings);
-        List<Toppings> remainingToppings = new ArrayList<>();
-        for(Toppings t : Toppings.values()){
-            if(!currPizza.toppings.contains(t)) remainingToppings.add(t);
-        }
-        allToppings = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, remainingToppings);
-        selectedToppings = findViewById(R.id.selectedToppings);
-        selectedToppings.setOnItemClickListener(this);
-        selectedToppings.setAdapter(chosenToppings);
-        generalToppings = findViewById(R.id.allToppings);
-        generalToppings.setOnItemClickListener(this);
-        generalToppings.setAdapter(allToppings);
-        updatePrice();
+        setToppings();
+
+        //set back button
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -86,7 +78,8 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
             createAlert("Maximum toppings of 7 reached.", "Error!");
             return;
         }
-        if(selectedTopping == null){
+        if(selectedTopping == null || isSelectedTopping){
+            selectedTopping = null;
             createAlert("Please select a topping to add.", "Error!");
             return;
         }
@@ -105,7 +98,8 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
             return;
         }
         //Toppings selectedTopping = (Toppings) generalToppings.getSelectedItem();
-        if(selectedTopping == null){
+        if(selectedTopping == null || !isSelectedTopping){
+            selectedTopping = null;
             createAlert("Please select a topping to remove.", "Error!");
             return;
         }
@@ -131,8 +125,14 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         System.out.println("ID: " + parent.equals(selectedToppings));
-        if(parent.equals(selectedToppings)) selectedTopping = (Toppings) selectedToppings.getItemAtPosition(position);
-        else selectedTopping = (Toppings) generalToppings.getItemAtPosition(position);
+        if(parent.equals(selectedToppings)){
+            selectedTopping = (Toppings) selectedToppings.getItemAtPosition(position);
+            isSelectedTopping = true;
+        }
+        else{
+            selectedTopping = (Toppings) generalToppings.getItemAtPosition(position);
+            isSelectedTopping = false;
+        }
         System.out.println("Selected Topping: " + selectedTopping);
     }
 
@@ -146,7 +146,48 @@ public class CurrentOrder extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) { }
 
     public void addOrder(View view){
-        mainPage.addOrder(currPizza);
+        System.out.println("curr pizza added: " + currPizza);
+        MainActivity.addOrder(currPizza);
+        currPizza = PizzaMaker.createPizza(Character.toUpperCase(type.charAt(0)) + type.substring(1));
+        setToppings();
+    }
+
+    @Override
+    public void onBackPressed(){
+        System.out.println("on back pressed");
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        System.out.println("on AB pressed");
+        finish();
+        System.out.println("method finished");
+        return true;
+    }
+
+    public void setToppings(){
+        //set toppings listview
+        chosenToppings = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, currPizza.toppings);
+        List<Toppings> remainingToppings = new ArrayList<>();
+        for(Toppings t : Toppings.values()){
+            if(!currPizza.toppings.contains(t)) remainingToppings.add(t);
+        }
+        allToppings = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, remainingToppings);
+        selectedToppings = findViewById(R.id.selectedToppings);
+        selectedToppings.setOnItemClickListener(this);
+        selectedToppings.setAdapter(chosenToppings);
+        generalToppings = findViewById(R.id.allToppings);
+        generalToppings.setOnItemClickListener(this);
+        generalToppings.setAdapter(allToppings);
+        updatePrice();
+    }
+
+    public void setSizes(){
+        sizes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, Size.values());
+        spinner = findViewById(R.id.sizeSpinner);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setAdapter(sizes);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.project5;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,14 +18,15 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
-    private List<Pizza> orders = new ArrayList<>();
+    private static List<Pizza> orders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("lifecycle", "on create invoked");
     }
 
     public void enterButton(View view){
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addOrder(Pizza newPizza){
+    public static void addOrder(Pizza newPizza){
         orders.add(newPizza);
     }
 
@@ -125,5 +128,20 @@ public class MainActivity extends AppCompatActivity {
         int endOfDecimal = Math.min(indexOfDecimalPoint + 3, amountAsString.length());
         formattedAmount += "." + amountAsString.substring(indexOfDecimalPoint + 1, endOfDecimal);
         return formattedAmount;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("lifecycle","onResume invoked");
+        System.out.println("orders: \n");
+        for(Pizza o : orders){
+            Log.d("Current Orders", o.toString());
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("lifecycle","onPause invoked");
     }
 }
