@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
         else if(name.compareTo("HawaiianPizza") == 0)   pizzaType = "Hawaiian";
         else pizzaType = "Pepperoni";
         list.add(pizzaType +", " + newPizza.toString());
-        Log.i("Order Added", "Pizza added to customer order")
+        Log.i("Order Added", "Pizza added to customer order");
     }
 
     //Formats the price amount to 2 decimal places
