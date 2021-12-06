@@ -20,13 +20,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
-    private static List<Pizza> orders = new ArrayList<>();
+    private static ArrayList<Pizza> orders = new ArrayList<>();
+    private static StoreOrders orderList = new StoreOrders();
+    public static String number = "";
+    public static ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i("lifecycle", "onCreate() invoked");
+        setContentView(R.layout.activity_main);
+        Button btn6 = (Button) findViewById(R.id.cart);
+        btn6.setEnabled(false);
+        Button btn7 = (Button) findViewById(R.id.view);
+        btn7.setEnabled(false);
     }
 
     public void enterButton(View view){
@@ -54,6 +62,10 @@ public class MainActivity extends AppCompatActivity{
         btn5.setEnabled(!b);
         TextView phoneNum = (TextView) findViewById(R.id.textInput);
         phoneNum.setEnabled(!b);
+        Button btn6 = (Button) findViewById(R.id.cart);
+        btn6.setEnabled(b);
+        Button btn7 = (Button) findViewById(R.id.view);
+        btn7.setEnabled(b);
     }
 
     public void createDeluxeOrder(View view) {
@@ -74,8 +86,21 @@ public class MainActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public static void addOrder(Pizza newPizza){
+    public static void addPizza(Pizza newPizza){
         orders.add(newPizza);
+        String pizzaType ="";
+        String name = newPizza.getClass().getName();
+        name = name.substring(10);
+        if(name.compareTo("DeluxePizza") == 0) pizzaType = "Deluxe";
+        else if(name.compareTo("HawaiianPizza") == 0)   pizzaType = "Hawaiian";
+        else pizzaType = "Pepperoni";
+
+        list.add(pizzaType +", " + newPizza.toString());
+
+//        for(int i = 0; i < orders.size(); i++){
+//            System.out.println(orders.get(i).toString());
+//        }
+//        System.out.println("size: " + orders.size());
     }
 
     /**
@@ -83,7 +108,7 @@ public class MainActivity extends AppCompatActivity{
      * @param amount is the amount given by user
      * @return string format of amount
      */
-    public String formatAmount(double amount){
+    public static String formatAmount(double amount){
         int amountInInt = (int)amount;
         String intPart = Integer.toString(amountInInt);
         String formattedAmount = "";
@@ -145,4 +170,68 @@ public class MainActivity extends AppCompatActivity{
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+    public void orderCart1(View view){
+//        PizzaApplication app = (PizzaApplication) getApplicationContext();
+//        app.setList(list);
+        Intent intent = new Intent(this, OrderCart2.class);
+        intent.putExtra("number", number);
+//        intent.putExtra("order", orders);
+        intent.putExtra("list", list);
+        startActivity(intent);
+    }
+    public void orderView1(View view){
+        Intent intent = new Intent(this, OrderView.class);
+//        intent.putExtra("orderList", orderList);
+        startActivity(intent);
+    }
+    public static void setPizza(ArrayList<Pizza> order){
+        orders = order;
+        list = new ArrayList<>();
+    }
+    public static void addOrder(Order order){
+        orderList.orderAdd(order);
+    }
+    public static void removePizza(Pizza pizza, boolean val, List<Toppings> toppingList, double sum, Size size){
+        for (int j = 0; j < orders.size(); j++){
+            if(orders.get(j).getClass().getName().compareTo(pizza.getClass().getName()) == 0 && orders.get(j).price() == sum && orders.get(j).size.toString().compareTo(size.toString()) == 0 && orders.get(j).toppings.size() == toppingList.size()){
+                int y = 0;
+                for(y = 0; y < toppingList.size(); y++){
+                    if(orders.get(j).toppings.get(y).toString().compareTo(toppingList.get(y).toString())!=0){
+                        val = true;
+                        break;
+                    }
+                }
+                if(y == toppingList.size() && val == false) {
+                    orders.remove(orders.get(j));
+                    break;
+                }
+                val = false;
+            }
+        }
+    }
+
+    public static void removePizzaList(String pizza){
+        list.remove(pizza);
+    }
+    public static ArrayList<Pizza> getPizzaList(){
+        return orders;
+    }
+
+    /**
+     * gets order total
+     * @param pizza is pizza list
+     * @return order total
+     */
+    public static double getTotal(){
+        double sum = 0;
+        for(int i = 0; i < orders.size(); i++){
+            sum += orders.get(i).price();
+        }
+
+        return sum;
+    }
+
+
+
+
 }
