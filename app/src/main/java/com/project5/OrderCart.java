@@ -16,69 +16,69 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+//View Order Cart features
+//TODO - Toast instead of Alerts?????
 
 public class OrderCart extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
-    private TextView text;
-    private TextView tax;
-    private TextView total;
-    private TextView subtotal;
-    public static ListView pizzaView;
-    public static ArrayAdapter<String> adapter = null;
-    public static String selectedPizza = null;
-    public static ArrayList<String> pizzaList = new ArrayList<>();
-    public static String number = "";
+    private static TextView text;
+    private static TextView tax;
+    private static TextView total;
+    private static TextView subtotal;
+    private static ListView pizzaView;
+    private static ArrayAdapter<String> adapter = null;
+    private static String selectedPizza = null;
+    private static ArrayList<String> pizzaList = new ArrayList<>();
+    private static String number = "";
     private static double subtotal1;
     private static double tax1;
     private static double total1;
 
+    //Initializes the order cart activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_cart);
-        Intent iin= getIntent();
-        Bundle b = iin.getExtras();
+        Intent intent= getIntent();
+        Bundle bundle = intent.getExtras();
         text = findViewById(R.id.phone);
         tax = findViewById(R.id.taxAmount);
         total = findViewById(R.id.totalAmount);
         subtotal = findViewById(R.id.subTotal);
-        if(b!=null) {
-            pizzaList = (ArrayList<String>) iin.getSerializableExtra("list");
-            number = (String) b.get("number");
+        if(bundle != null) {
+            pizzaList = (ArrayList<String>) intent.getSerializableExtra("list");
+            number = (String) bundle.get("number");
             text.setText(number);
             update();
             setAmount();
         }
     }
-
+    //Sets the selectedPizza when back button in action bar is clicked
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        System.out.println("ID: " + parent.equals(selectedToppings));
         if(parent.equals(pizzaView)) selectedPizza = (String) pizzaView.getItemAtPosition(position);
-        System.out.println("Selected Pizza: " + selectedPizza);
     }
+
+    //Nothing is changed when no listview selected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
     }
-
+    //does nothing when nothing is selected in the listview
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
 
-
+    //When back button at the bottom the screen is pressed
     @Override
     public void onBackPressed(){
-        System.out.println("on back pressed");
         finish();// calls main activity's onresume
     }
 
+    //When back button in ActionBar is pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("on AB pressed");
         finish();
-        System.out.println("method finished");
         return true;
     }
-
+    //remove Pizza from Order Cart
     public void removePizza(View view){
         if(pizzaList.size() == 0){
             createAlert("No pizzas in the list.", "Error!");
@@ -93,7 +93,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         MainActivity.removePizzaList(selectedPizza);
         StringTokenizer token = new StringTokenizer(selectedPizza, ", ");
         String pizzaType = token.nextToken();
-        System.out.println("ppizza " + pizzaType);
+
         List<Toppings> toppingList = new ArrayList<>();
         String top = "";
         while(token.hasMoreTokens()){
@@ -108,7 +108,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         Size size = Size.valueOf(top);
         StringTokenizer amount = new StringTokenizer(token.nextToken(), "$");
         double sum = Double.parseDouble(amount.nextToken());
-//        System.out.println("Sum is " + sum);
+
         Pizza pizza = PizzaMaker.createPizza(pizzaType);
         selectedPizza = null;
         pizza.price = sum;
@@ -117,6 +117,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         setAmount();
     }
 
+    //adds Pizza List to Order
     public void placeOrder(View view){
         if(pizzaList.size() == 0){
             createAlert("No pizzas in the list.", "Error!");
@@ -141,7 +142,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
+    //updates listview
     public void update(){
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pizzaList);
         pizzaView = (ListView) findViewById(R.id.listView);
@@ -150,6 +151,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         subtotal1 = MainActivity.getTotal();
     }
 
+    //Updates tax, total and subtotal
     public void setAmount(){
         if(subtotal1 == 0){
             subtotal.setText("");

@@ -22,17 +22,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-
+//Order View's features
 public class OrderView extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
-    public static ArrayList<String> phoneList = new ArrayList<>();// pho
-    public static ArrayAdapter<String> spinnerAdapter = null;
-    public static ArrayAdapter<String> orderAdapter = null;
-    public static ArrayList<String> orderList = new ArrayList<>();
-    public static ListView pizzaOrder;
-    public static String selectedOrder = null;
-    public static String selectedNumber = null;
+    private static ArrayList<String> phoneList = new ArrayList<>();// pho
+    private static ArrayAdapter<String> spinnerAdapter = null;
+    private static ArrayAdapter<String> orderAdapter = null;
+    private static ArrayList<String> orderList = new ArrayList<>();
+    private static ListView pizzaOrder;
+    private static String selectedNumber = null;
     private TextView total;
-    Spinner spinner;
+    private static Spinner spinner;
+
+    //Initializes the order cart activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,17 +66,16 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
 
     }
 
+    //When back button at the bottom the screen is pressed
     @Override
     public void onBackPressed(){
-        System.out.println("on back pressed");
         finish();// calls main activity's onresume
     }
 
+    //When back button in ActionBar is pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println("on AB pressed");
         finish();
-        System.out.println("method finished");
         return true;
     }
 
@@ -91,7 +91,7 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
+//remove order and associated Number
     public void removeOrderList(View view){
         if(selectedNumber == null){
             createAlert("Please add an order!", "Error!");
@@ -110,6 +110,7 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         total.setText("");
     }
 
+    //Updates selectedNumber when spinner is selected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
         selectedNumber = (String) spinner.getSelectedItem();
@@ -117,7 +118,7 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
             update();
         }
     }
-
+//updates total and orderList
     public void update(){
         orderList = MainActivity.printList(selectedNumber);
         total = findViewById(R.id.totalAmount1);
@@ -126,22 +127,20 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         orderList.remove(orderList.size()-1);
         updateList();
     }
-
+//Updates listview
     public void updateList(){
         orderAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, orderList);
         pizzaOrder = (ListView) findViewById(R.id.listView2);
         pizzaOrder.setOnItemClickListener(this);
         pizzaOrder.setAdapter(orderAdapter);
     }
-
+//does nothing when no selectedNumber
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
 
-
+    //Does nothing when listview selected
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        System.out.println("ID: " + parent.equals(selectedToppings));
-        if(parent.equals(pizzaOrder)) selectedOrder = (String) pizzaOrder.getItemAtPosition(position);
-//        System.out.println("Selected Pizza: " + selectedPizza);
+
     }
 }
