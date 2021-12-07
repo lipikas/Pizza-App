@@ -1,5 +1,6 @@
 package com.project5;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 //View Order Cart features
-//TODO - Toast instead of Alerts?????
 
 public class OrderCart extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
     private static TextView text;
@@ -32,6 +33,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
     private static double subtotal1;
     private static double tax1;
     private static double total1;
+    private static double taxAmount2 = 0.06625;
 
     //Initializes the order cart activity
     @Override
@@ -81,11 +83,11 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
     //remove Pizza from Order Cart
     public void removePizza(View view){
         if(pizzaList.size() == 0){
-            createAlert("No pizzas in the list.", "Error!");
+            displayMessage("No pizzas in the list.");
             return;
         }
         if(selectedPizza == null){
-           createAlert("Please select a pizza to remove.", "Error!");
+            displayMessage("Please select a pizza to remove.");
             return;
         }
         ((ArrayAdapter) pizzaView.getAdapter()).remove(selectedPizza);
@@ -120,7 +122,7 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
     //adds Pizza List to Order
     public void placeOrder(View view){
         if(pizzaList.size() == 0){
-            createAlert("No pizzas in the list.", "Error!");
+            displayMessage("No pizzas in the list.");
             return;
         }
         MainActivity.addOrder(new Order(MainActivity.getPizzaList(), number, total1));// add to order list
@@ -128,20 +130,9 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
         pizzaList = new ArrayList<>();
         update();
         setAmount();
+        displayMessage("Placed order.");
     }
 
-    //Creates an alert with the message and title passed as an argument
-    public void createAlert(String message, String title){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setTitle(title);
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
     //updates listview
     public void update(){
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pizzaList);
@@ -162,10 +153,17 @@ public class OrderCart extends AppCompatActivity implements AdapterView.OnItemCl
 
         subtotal1 = Double.parseDouble(MainActivity.formatAmount(subtotal1));
         subtotal.setText("$ " + subtotal1);
-        tax1 = subtotal1*(6.625/100);
+        tax1 = subtotal1*taxAmount2;
         tax1 = Double.parseDouble(MainActivity.formatAmount(tax1));
         tax.setText("$ " + tax1);
         total.setText("$ " +MainActivity.formatAmount(tax1 +  subtotal1));
         total1 = tax1 + subtotal1;
+    }
+
+    //Displays success message on Toast when order is added
+    private void displayMessage(CharSequence text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text, duration).show();
     }
 }

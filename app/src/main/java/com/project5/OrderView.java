@@ -1,5 +1,6 @@
 package com.project5;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,7 +52,6 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
 
-        System.out.println("N:- " + selectedNumber);
         if(selectedNumber!= null){
             orderList = MainActivity.printList(selectedNumber);
             total = findViewById(R.id.totalAmount1);
@@ -63,7 +64,6 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
             pizzaOrder.setOnItemClickListener(this);
             pizzaOrder.setAdapter(orderAdapter);
         }
-
     }
 
     //When back button at the bottom the screen is pressed
@@ -79,22 +79,22 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         return true;
     }
 
-    //Creates an alert with the message and title passed as an argument
-    public void createAlert(String message, String title){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(message);
-        alert.setTitle(title);
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = alert.create();
-        dialog.show();
-    }
-//remove order and associated Number
+//    //Creates an alert with the message and title passed as an argument
+//    public void createAlert(String message, String title){
+//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//        alert.setMessage(message);
+//        alert.setTitle(title);
+//        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int which) {
+//            }
+//        });
+//        AlertDialog dialog = alert.create();
+//        dialog.show();
+//    }
+    //remove order and associated Number
     public void removeOrderList(View view){
         if(selectedNumber == null){
-            createAlert("Please add an order!", "Error!");
+            displayMessage("Please add an order!");
             return;
         }
         MainActivity.removeOrderList(selectedNumber);
@@ -118,7 +118,7 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
             update();
         }
     }
-//updates total and orderList
+    //updates total and orderList
     public void update(){
         orderList = MainActivity.printList(selectedNumber);
         total = findViewById(R.id.totalAmount1);
@@ -127,14 +127,14 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
         orderList.remove(orderList.size()-1);
         updateList();
     }
-//Updates listview
+    //Updates listview
     public void updateList(){
         orderAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, orderList);
         pizzaOrder = (ListView) findViewById(R.id.listView2);
         pizzaOrder.setOnItemClickListener(this);
         pizzaOrder.setAdapter(orderAdapter);
     }
-//does nothing when no selectedNumber
+    //does nothing when no selectedNumber
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
 
@@ -142,5 +142,12 @@ public class OrderView extends AppCompatActivity implements AdapterView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+    }
+
+    //Displays success message on Toast when order is added
+    private void displayMessage(CharSequence text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text, duration).show();
     }
 }

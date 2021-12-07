@@ -52,4 +52,45 @@ public abstract class Pizza {
         return topping + this.size.toString() + ", $" + price();
     }
 
+    /**
+     * formats the amount
+     * @param amount is the amount given by user
+     * @return string format of amount
+     */
+    public String formatAmount(double amount){
+        int amountInInt = (int)amount;
+        String intPart = Integer.toString(amountInInt);
+        String formattedAmount = "";
+        int len = intPart.length();
+        if(len <= 3) {
+            formattedAmount = intPart;
+        }
+        else if(len % 3 == 0) {
+            int beg = 0, end = 3;
+            for(int i = 1; i < len/3; i++){
+                formattedAmount += intPart.substring(beg, end) + ",";
+                beg = end;
+                end += 3;
+            }
+            formattedAmount += intPart.substring(beg, len);
+        }
+        else{
+            int remainder = len % 3;
+            formattedAmount = intPart.substring(0, remainder) + ",";
+            int beg = remainder, end = beg + 3;
+            for(int i = 1; i < len/3; i++){
+                formattedAmount += intPart.substring(beg, end) + ",";
+                beg = end;
+                end += 3;
+            }
+            formattedAmount += intPart.substring(beg, len);
+        }
+        String amountAsString = Double.toString(amount);
+        amountAsString += "0";
+        int indexOfDecimalPoint = amountAsString.indexOf(".");
+        int endOfDecimal = Math.min(indexOfDecimalPoint + 3, amountAsString.length());
+        formattedAmount += "." + amountAsString.substring(indexOfDecimalPoint + 1, endOfDecimal);
+        return formattedAmount;
+    }
+
 }

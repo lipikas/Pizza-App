@@ -23,4 +23,6 @@
     <string name="text_view4">Price:</string>
     <string name="text_view5">price</string>
     <string name="text_view6">Customer Phone Number:</string>
+    <string name="order_cart">Order Cart </string>
+    <string name="order_view">Order View </string>
 </resources>
