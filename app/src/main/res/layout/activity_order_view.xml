@@ -19,21 +19,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/orderView"
-                android:textSize="16sp" />
-
             <TableRow
                 android:layout_width="398dp"
                 android:layout_height="74dp"
                 android:gravity="center_horizontal"
                 android:padding="5dp"
-                android:paddingRight="20dp">
+                android:paddingTop="30dp">
 
                 <TextView
                     android:id="@+id/textView5"
