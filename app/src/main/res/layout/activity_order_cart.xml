@@ -167,7 +167,8 @@
             android:layout_marginLeft="10dp"
             android:gravity="center_horizontal"
             android:onClick="placeOrder"
-            android:text="@string/place" />
+            android:text="@string/place"
+            android:textColor="#424242" />
 
         <Button
             android:id="@+id/button3"
@@ -175,7 +176,8 @@
             android:layout_marginLeft="50dp"
             android:gravity="center_horizontal"
             android:onClick="removePizza"
-            android:text="@string/remove" />
+            android:text="@string/remove"
+            android:textColor="#424242" />
     </TableRow>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

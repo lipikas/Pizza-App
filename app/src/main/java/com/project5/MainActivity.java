@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+//Features main activity
 public class MainActivity extends AppCompatActivity{
     public static final String INTENT_MESSAGE = "com.project5.MESSAGE";
     private static ArrayList<Pizza> orders = new ArrayList<>();

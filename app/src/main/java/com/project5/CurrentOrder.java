@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+//Features current order
 public class CurrentOrder extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener {
 
     private Pizza currPizza;

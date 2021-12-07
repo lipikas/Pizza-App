@@ -32,7 +32,7 @@
                         android:layout_column="1"
                         android:paddingTop="20dp"
                         android:text="@string/text_view6"
-                        android:textColor="@color/purple_500" />
+                        android:textColor="#DD2C00" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
@@ -46,7 +46,8 @@
                             android:layout_height="match_parent"
                             android:hint=""
                             android:inputType="number"
-                            android:maxLength="10" />
+                            android:maxLength="10"
+                            tools:ignore="SpeakableTextPresentCheck" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </TableRow>
 
@@ -62,7 +63,8 @@
                         android:layout_column="1"
                         android:layout_marginLeft="10dp"
                         android:onClick="enterButton"
-                        android:text="@string/button_text1" />
+                        android:text="@string/button_text1"
+                        android:textColor="#424242" />
 
                     <Button
                         android:id="@+id/change"
@@ -167,7 +169,8 @@
                         android:layout_width="154dp"
                         android:layout_height="70dp"
                         android:layout_column="2"
-                        android:src="@drawable/cart" />
+                        android:src="@drawable/cart"
+                        tools:ignore="ImageContrastCheck" />
 
                 </TableRow>
 
